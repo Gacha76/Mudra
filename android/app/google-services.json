@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "899561839732",
+    "project_id": "myfirstproject-bdf79",
+    "storage_bucket": "myfirstproject-bdf79.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:899561839732:android:d0e57a4fabac238c5cc521",
+        "android_client_info": {
+          "package_name": "com.example.classico"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "899561839732-u1iiau3hhn3vm4lmrc86agl2k6hpb42m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXj-JU2ZxqPrxPo_rjsNb5gaf7UpCwlmE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "899561839732-u1iiau3hhn3vm4lmrc86agl2k6hpb42m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "899561839732-733gnt4dl03hju1dslgdmupmkv32dnbi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.classico"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

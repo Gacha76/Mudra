@@ -1,3 +1,4 @@
+import 'package:classico/constants/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as devtools show log;
@@ -34,8 +35,10 @@ class _RegisterViewState extends State<RegisterView> {
       appBar: AppBar(
         title: const Text("Register"),
       ),
-      body: Column( //Ctrl + Shift + R
-        children: [ //Ctrl + Shift + F
+      body: Column(
+        //Ctrl + Shift + R
+        children: [
+          //Ctrl + Shift + F
           TextField(
             controller: _email,
             enableSuggestions: false,
@@ -60,9 +63,11 @@ class _RegisterViewState extends State<RegisterView> {
               final email = _email.text;
               final password = _password.text;
               try {
-                final userCredential = await FirebaseAuth.instance
-                    .createUserWithEmailAndPassword(
-                        email: email, password: password);
+                final userCredential =
+                    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                  email: email,
+                  password: password,
+                );
                 devtools.log(userCredential.toString());
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'weak-password') {
@@ -79,7 +84,7 @@ class _RegisterViewState extends State<RegisterView> {
           TextButton(
             onPressed: () {
               Navigator.of(context).pushNamedAndRemoveUntil(
-                '/login/',
+                loginRoute,
                 (route) => false,
               );
             },

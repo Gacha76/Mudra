@@ -8,13 +8,18 @@ import 'package:sqflite/sqflite.dart';
 class NotesService {
   Database? _db;
   List<DatabaseNotes> _notes = [];
-  final _notesStreamController =
-      StreamController<List<DatabaseNotes>>.broadcast();
-
+  late final StreamController<List<DatabaseNotes>> _notesStreamController;
   Stream<List<DatabaseNotes>> get allNotes => _notesStreamController.stream;
-  
   static final NotesService _shared = NotesService._sharedInstance();
-  NotesService._sharedInstance();
+
+  NotesService._sharedInstance() {
+    _notesStreamController = StreamController.broadcast(
+      onListen: () {
+        _notesStreamController.sink.add(_notes);
+      },
+    );
+  }
+
   factory NotesService() => _shared;
 
   Future<DatabaseUser> getOrCreateUser({required String email}) async {

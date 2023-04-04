@@ -1,4 +1,4 @@
-import 'dart:async';
+/*import 'dart:async';
 import 'package:classico/extensions/list/filter.dart';
 import 'package:classico/services/crud/crud_exceptions.dart';
 import 'package:flutter/material.dart';
@@ -346,4 +346,4 @@ const createNoteTable = '''CREATE TABLE IF NOT EXISTS "note" (
 	"is_synced_with_cloud"	INTEGER NOT NULL DEFAULT 0,
 	PRIMARY KEY("id" AUTOINCREMENT),
 	FOREIGN KEY("user_id") REFERENCES "user"("id")
-);''';
+);''';*/

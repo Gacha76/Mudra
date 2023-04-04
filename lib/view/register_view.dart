@@ -1,6 +1,6 @@
 import 'package:classico/services/auth/auth_exceptions.dart';
 import 'package:classico/services/auth/auth_service.dart';
-import 'package:classico/utilities/show_error_dialog.dart';
+import 'package:classico/utilities/dialogs/error_dialog.dart';
 import 'package:classico/constants/routes.dart';
 import 'package:flutter/material.dart';
 

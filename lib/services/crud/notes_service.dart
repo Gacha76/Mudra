@@ -22,8 +22,8 @@ class NotesService {
           throw UserShouldBeSetBeforeReadingAllNotes();
         }
       });
-  static final NotesService _shared = NotesService._sharedInstance();
 
+  static final NotesService _shared = NotesService._sharedInstance();
   NotesService._sharedInstance() {
     _notesStreamController = StreamController.broadcast(
       onListen: () {

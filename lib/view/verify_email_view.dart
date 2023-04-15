@@ -1,3 +1,4 @@
+import 'package:classico/extensions/buildcontext/loc.dart';
 import 'package:classico/services/auth/bloc/auth_bloc.dart';
 import 'package:classico/services/auth/bloc/auth_event.dart';
 import 'package:flutter/material.dart';
@@ -15,31 +16,33 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Verify Email"),
+        title: Text(context.loc.verify_email),
       ),
-      body: Column(
-        children: [
-          const Text(
-              "We've sent you an email verification. PLease open it to verify your account."),
-          const Text(
-              "If you haven't recieved a verification email yeat, press the button below"),
-          TextButton(
-            onPressed: () {
-              context.read<AuthBloc>().add(
-                    const AuthEventSendEmailVerification(),
-                  );
-            },
-            child: const Text("Send email verification"),
-          ),
-          TextButton(
-            onPressed: () {
-              context.read<AuthBloc>().add(
-                    const AuthEventLogOut(),
-                  );
-            },
-            child: const Text("Restart"),
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(context.loc.verify_email_view_prompt),
+            ),
+            TextButton(
+              onPressed: () {
+                context.read<AuthBloc>().add(
+                      const AuthEventSendEmailVerification(),
+                    );
+              },
+              child: Text(context.loc.verify_email_send_email_verification),
+            ),
+            TextButton(
+              onPressed: () {
+                context.read<AuthBloc>().add(
+                      const AuthEventLogOut(),
+                    );
+              },
+              child: Text(context.loc.restart),
+            ),
+          ],
+        ),
       ),
     );
   }

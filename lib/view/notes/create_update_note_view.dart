@@ -1,4 +1,3 @@
-import 'package:classico/extensions/buildcontext/loc.dart';
 import 'package:classico/utilities/generics/get_arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:classico/services/auth/auth_service.dart';
@@ -92,7 +91,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.loc.note),
+        title: const Text('Medical History'),
         actions: [
           IconButton(
             onPressed: () async {
@@ -113,13 +112,41 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               _setupTextControllerListener();
-              return TextField(
-                controller: _textController,
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-                decoration: InputDecoration(
-                  hintText: context.loc.start_typing_your_note,
-                ),
+              return Column(
+                children: [
+                  TextField(
+                    controller: _textController,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    decoration: const InputDecoration(
+                      hintText: "Enter diagnosis",
+                    ),
+                  ),  
+                  TextField(
+                    controller: _textController,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    decoration: const InputDecoration(
+                      hintText: "Enter date of diagnosis",
+                    ),
+                  ),  
+                  TextField(
+                    controller: _textController,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    decoration: const InputDecoration(
+                      hintText: "Enter prescriptions",
+                    ),
+                  ),  
+                  TextField(
+                    controller: _textController,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    decoration: const InputDecoration(
+                      hintText: "Any additional useful remark",
+                    ),
+                  ),
+                ],
               );
             default:
               return const CircularProgressIndicator();

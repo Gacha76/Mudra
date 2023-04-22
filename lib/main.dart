@@ -4,12 +4,13 @@ import 'package:classico/services/auth/bloc/auth_event.dart';
 import 'package:classico/services/auth/bloc/auth_state.dart';
 import 'package:classico/services/auth/firebase_auth_provider.dart';
 import 'package:classico/view/forgot_password_view.dart';
+import 'package:classico/view/mainui_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:classico/view/notes/create_update_note_view.dart';
 import 'package:classico/view/notes/notes_view.dart';
 import 'package:classico/view/verify_email_view.dart';
 import 'package:classico/view/register_view.dart';
-import 'package:classico/view/login_view.dart';
+import 'package:classico/view/maps_view.dart';
 import 'package:flutter/material.dart';
 import 'constants/routes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -17,21 +18,29 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
-    MaterialApp(
-      supportedLocales: AppLocalizations.supportedLocales,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      title: 'NoteBlock',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthBloc>(
+          create: (context) => AuthBloc(FirebaseAuthProvider()),
+        ),
+      ],
+      child: MaterialApp(
+        supportedLocales: AppLocalizations.supportedLocales,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        title: 'NoteBlock',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: BlocProvider<AuthBloc>(
+          create: (context) => AuthBloc(FirebaseAuthProvider()),
+          child: const HomePage(),
+        ),
+        routes: {
+          createOrUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
+          '/maps/': (context) => const MapScreen(),
+        },
       ),
-      home: BlocProvider<AuthBloc>(
-        create: (context) => AuthBloc(FirebaseAuthProvider()),
-        child: const HomePage(),
-      ),
-      routes: {
-        createOrUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
-      },
     ),
   );
 }
@@ -59,7 +68,7 @@ class HomePage extends StatelessWidget {
         } else if (state is AuthStateNeedsVerification) {
           return const VerifyEmailView();
         } else if (state is AuthStateLoggedOut) {
-          return const LoginView();
+          return const MainPage();
         } else if (state is AuthStateForgotPassword) {
           return const ForgotPasswordView();
         } else if (state is AuthStateRegistering) {

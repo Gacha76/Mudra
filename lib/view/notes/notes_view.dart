@@ -1,5 +1,4 @@
 import 'package:classico/constants/routes.dart';
-import 'package:classico/enums/menu_action.dart';
 import 'package:classico/extensions/buildcontext/loc.dart';
 import 'package:classico/services/auth/auth_service.dart';
 import 'package:classico/services/auth/bloc/auth_bloc.dart';
@@ -13,6 +12,11 @@ import 'package:flutter_bloc/flutter_bloc.dart' show ReadContext;
 
 extension Count<T extends Iterable> on Stream<T> {
   Stream<int> get getLength => map((event) => event.length);
+}
+
+enum MenuAction {
+  logout,
+  maps,
 }
 
 class NotesView extends StatefulWidget {
@@ -61,11 +65,14 @@ class _NotesViewState extends State<NotesView> {
                 case MenuAction.logout:
                   final shouldLogout = await showLogOutDialog(context);
                   if (shouldLogout) {
-                    if (context.mounted)
-                    {
+                    if (context.mounted) {
                       context.read<AuthBloc>().add(const AuthEventLogOut());
                     }
                   }
+                  break;
+                case MenuAction.maps:
+                  Navigator.of(context).pushNamed('/maps/');
+                  break;
               }
             },
             itemBuilder: (context) {
@@ -73,6 +80,10 @@ class _NotesViewState extends State<NotesView> {
                 PopupMenuItem<MenuAction>(
                   value: MenuAction.logout,
                   child: Text(context.loc.logout_button),
+                ),
+                const PopupMenuItem(
+                  value: MenuAction.maps,
+                  child: Text("Maps"),
                 ),
               ];
             },

@@ -4,6 +4,7 @@ import 'package:classico/services/auth/bloc/auth_event.dart';
 import 'package:classico/services/auth/bloc/auth_state.dart';
 import 'package:classico/services/auth/firebase_auth_provider.dart';
 import 'package:classico/view/forgot_password_view.dart';
+import 'package:classico/view/login_view.dart';
 import 'package:classico/view/mainui_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:classico/view/notes/create_update_note_view.dart';
@@ -27,7 +28,7 @@ void main() {
       child: MaterialApp(
         supportedLocales: AppLocalizations.supportedLocales,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
-        title: 'NoteBlock',
+        title: 'Mudra',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -37,8 +38,13 @@ void main() {
           child: const HomePage(),
         ),
         routes: {
-          createOrUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
-          '/maps/': (context) => const MapScreen(),
+          forgotEmailRoute:(context) => const ForgotPasswordView(),
+          mapsRoute: (context) => const MapScreen(),
+          loginRoute: (context) => const LoginView(),
+        registerRoute: (context) => const RegisterView(),
+        notesRoute: (context) => const NotesView(),
+        verifyEmailRoute: (context) => const VerifyEmailView(),
+        createOrUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
         },
       ),
     ),

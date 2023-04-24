@@ -1,3 +1,4 @@
+import 'package:classico/constants/routes.dart';
 import 'package:classico/extensions/buildcontext/loc.dart';
 import 'package:classico/services/auth/auth_exceptions.dart';
 import 'package:classico/services/auth/bloc/auth_bloc.dart';
@@ -112,9 +113,10 @@ class _RegisterViewState extends State<RegisterView> {
                       ),
                       TextButton(
                         onPressed: () {
-                          context.read<AuthBloc>().add(
-                                const AuthEventLogOut(),
-                              );
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                            loginRoute,
+                            (route) => false,
+                          );
                         },
                         child:
                             Text(context.loc.register_view_already_registered),

@@ -1,3 +1,4 @@
+import 'package:classico/constants/routes.dart';
 import 'package:classico/extensions/buildcontext/loc.dart';
 import 'package:classico/services/auth/auth_exceptions.dart';
 import 'package:classico/services/auth/bloc/auth_bloc.dart';
@@ -102,17 +103,19 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 TextButton(
                   onPressed: () {
-                    context.read<AuthBloc>().add(
-                          const AuthEventForgotPassword(),
-                        );
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      forgotEmailRoute,
+                      (route) => false,
+                    );
                   },
                   child: Text(context.loc.login_view_forgot_password),
                 ),
                 TextButton(
                   onPressed: () {
-                    context.read<AuthBloc>().add(
-                          const AuthEventShouldRegister(),
-                        );
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      registerRoute,
+                      (route) => false,
+                    );                    
                   },
                   child: Text(context.loc.login_view_not_registered_yet),
                 ),

@@ -71,7 +71,7 @@ class _NotesViewState extends State<NotesView> {
                   }
                   break;
                 case MenuAction.maps:
-                  Navigator.of(context).pushNamed('/maps/');
+                  Navigator.of(context).pushNamed(mapsRoute);
                   break;
               }
             },
@@ -81,7 +81,7 @@ class _NotesViewState extends State<NotesView> {
                   value: MenuAction.logout,
                   child: Text(context.loc.logout_button),
                 ),
-                const PopupMenuItem(
+                const PopupMenuItem<MenuAction>(
                   value: MenuAction.maps,
                   child: Text("Maps"),
                 ),

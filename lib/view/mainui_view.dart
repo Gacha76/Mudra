@@ -1,8 +1,8 @@
+import 'package:classico/constants/routes.dart';
 import 'package:classico/services/auth/bloc/auth_bloc.dart';
 import 'package:classico/view/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -32,7 +32,7 @@ class MainPage extends StatelessWidget {
               const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/maps/');
+                  Navigator.of(context).pushNamed(mapsRoute);
                 },
                 child: const Text('Maps'),
               ),

@@ -1,3 +1,4 @@
+import 'package:classico/constants/routes.dart';
 import 'package:classico/extensions/buildcontext/loc.dart';
 import 'package:classico/services/auth/bloc/auth_bloc.dart';
 import 'package:classico/services/auth/bloc/auth_event.dart';
@@ -39,8 +40,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             await showPasswordResetEmailSentDialog(context);
           }
           if (state.exception != null) {
-            if (context.mounted)
-            {
+            if (context.mounted) {
               await showErrorDialog(
                 context,
                 context.loc.forgot_password_view_generic_error,
@@ -79,9 +79,10 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 ),
                 TextButton(
                   onPressed: () {
-                    context.read<AuthBloc>().add(
-                          const AuthEventLogOut(),
-                        );
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      loginRoute,
+                      (route) => false,
+                    );
                   },
                   child: Text(context.loc.forgot_password_view_back_to_login),
                 ),

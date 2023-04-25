@@ -1,14 +1,11 @@
 import 'package:classico/constants/routes.dart';
 import 'package:classico/extensions/buildcontext/loc.dart';
 import 'package:classico/services/auth/auth_service.dart';
-import 'package:classico/services/auth/bloc/auth_bloc.dart';
-import 'package:classico/services/auth/bloc/auth_event.dart';
 import 'package:classico/services/cloud/cloud_note.dart';
 import 'package:classico/services/cloud/firebase_cloud_storage.dart';
 import 'package:classico/utilities/dialogs/logout_dialog.dart';
 import 'package:classico/view/notes/notes_list_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart' show ReadContext;
 
 extension Count<T extends Iterable> on Stream<T> {
   Stream<int> get getLength => map((event) => event.length);
@@ -65,8 +62,12 @@ class _NotesViewState extends State<NotesView> {
                 case MenuAction.logout:
                   final shouldLogout = await showLogOutDialog(context);
                   if (shouldLogout) {
+                    await AuthService.firebase().logout();
                     if (context.mounted) {
-                      context.read<AuthBloc>().add(const AuthEventLogOut());
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        loginRoute,
+                        (_) => false,
+                      );
                     }
                   }
                   break;

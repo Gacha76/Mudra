@@ -1,8 +1,7 @@
+import 'package:classico/constants/routes.dart';
 import 'package:classico/extensions/buildcontext/loc.dart';
-import 'package:classico/services/auth/bloc/auth_bloc.dart';
-import 'package:classico/services/auth/bloc/auth_event.dart';
+import 'package:classico/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class VerifyEmailView extends StatefulWidget {
   const VerifyEmailView({super.key});
@@ -26,18 +25,20 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
               child: Text(context.loc.verify_email_view_prompt),
             ),
             TextButton(
-              onPressed: () {
-                context.read<AuthBloc>().add(
-                      const AuthEventSendEmailVerification(),
-                    );
+              onPressed: () async {
+                await AuthService.firebase().sendEmailVerification();
               },
               child: Text(context.loc.verify_email_send_email_verification),
             ),
             TextButton(
-              onPressed: () {
-                context.read<AuthBloc>().add(
-                      const AuthEventLogOut(),
-                    );
+              onPressed: () async {
+                await AuthService.firebase().logout();
+                if (context.mounted) {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    registerRoute,
+                    (route) => false,
+                  );
+                }
               },
               child: Text(context.loc.restart),
             ),

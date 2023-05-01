@@ -26,9 +26,9 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     if (widgetNote != null) {
       _note = widgetNote;
       _textController.text = widgetNote.text;
-      _textController1.text = widgetNote.text;
-      _textController2.text = widgetNote.text;
-      _textController3.text = widgetNote.text;
+      _textController1.text = widgetNote.text1;
+      _textController2.text = widgetNote.text2;
+      _textController3.text = widgetNote.text3;
       return widgetNote;
     }
 
@@ -67,10 +67,10 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
             text3.isNotEmpty)) {
       await _notesService.updateNote(
         documentId: note.documentId,
-          text: text,
-          text1: text1,
-          text2: text2,
-          text3: text3,
+        text: text,
+        text1: text1,
+        text2: text2,
+        text3: text3,
       );
     }
   }
@@ -105,8 +105,8 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     final text1 = _textController1.text;
     final text2 = _textController2.text;
     final text3 = _textController3.text;
-    await _notesService
-        .updateNote(documentId: note.documentId, 
+    await _notesService.updateNote(
+      documentId: note.documentId,
       text: text,
       text1: text1,
       text2: text2,
@@ -138,10 +138,8 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
                       text3.isEmpty)) {
                 await showCannotShareEmptyNoteDialog(context);
               } else {
-                Share.share(text);
-                Share.share(text1);
-                Share.share(text2);
-                Share.share(text3);
+                final texts = [text, text1, text2, text3];
+                Share.share(texts.join('\n'));
               }
             },
             icon: const Icon(Icons.share),

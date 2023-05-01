@@ -32,7 +32,7 @@ class FirebaseCloudStorage {
     final allNotes = notes
         .where(ownerUserIdFieldName, isEqualTo: ownerUserId)
         .snapshots()
-        .map((event) => event.docs.map((doc) => CloudNote.fromSnapshot(doc)));
+        .map((event) => event.docs.map((doc) => CloudNote.fromSnapshot(doc)).toList());
     return allNotes;
   }
 
@@ -40,12 +40,18 @@ class FirebaseCloudStorage {
     final document = await notes.add({
       ownerUserIdFieldName: ownerUserId,
       textFieldName: '',
+      textFieldName1: '',
+      textFieldName2: '',
+      textFieldName3: '',
     });
     final fetchedNote = await document.get();
     return CloudNote(
       documentId: fetchedNote.id,
       ownerUserId: ownerUserId,
       text: '',
+      text1: '',
+      text2: '',
+      text3: '',
     );
   }
 

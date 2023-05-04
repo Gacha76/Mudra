@@ -37,6 +37,7 @@ class _NotesViewState extends State<NotesView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.black,
         title: StreamBuilder(
           stream: _notesService.allNotes(ownerUserId: userId).getLength,
           builder: (context, AsyncSnapshot<int> snapshot) {
@@ -72,7 +73,7 @@ class _NotesViewState extends State<NotesView> {
                   }
                   break;
                 case MenuAction.maps:
-                  Navigator.of(context).pushNamed(mapsRoute);
+                  Navigator.of(context).pushNamed(mapbox);
                   break;
               }
             },
@@ -91,7 +92,15 @@ class _NotesViewState extends State<NotesView> {
           )
         ],
       ),
-      body: StreamBuilder(
+      body: Container(
+        decoration:const  BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage("assets/back.jpeg"),
+        fit: BoxFit.cover,
+      ),
+    ),
+        child:  StreamBuilder(
+      
         stream: _notesService.allNotes(ownerUserId: userId),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
@@ -119,7 +128,7 @@ class _NotesViewState extends State<NotesView> {
               return const CircularProgressIndicator();
           }
         },
-      ),
+      ),)
     );
   }
 }

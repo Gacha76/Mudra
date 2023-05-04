@@ -5,3 +5,4 @@ const verifyEmailRoute = '/verify-email/';
 const createOrUpdateNoteRoute = '/notes/new-note/';
 const forgotEmailRoute = '/forgot-email/';
 const mapsRoute = '/maps/';
+const mapbox = '/mapbox/';

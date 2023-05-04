@@ -6,6 +6,8 @@ import 'package:classico/services/cloud/firebase_cloud_storage.dart';
 import 'package:classico/utilities/dialogs/cannot_share_empty_note_dialog.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../constants/routes.dart';
+
 class CreateUpdateNoteView extends StatefulWidget {
   const CreateUpdateNoteView({super.key});
 
@@ -122,77 +124,124 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Medical History'),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              final text = _textController.text;
-              final text1 = _textController1.text;
-              final text2 = _textController2.text;
-              final text3 = _textController3.text;
-              if (_note == null ||
-                  (text.isEmpty &&
-                      text1.isEmpty &&
-                      text2.isEmpty &&
-                      text3.isEmpty)) {
-                await showCannotShareEmptyNoteDialog(context);
-              } else {
-                final texts = [text, text1, text2, text3];
-                Share.share(texts.join('\n'));
-              }
-            },
-            icon: const Icon(Icons.share),
-          ),
-        ],
-      ),
-      body: FutureBuilder(
-        future: createOrGetExistingNote(context),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              _setupTextControllerListener();
-              return Column(
-                children: [
-                  TextField(
-                    controller: _textController,
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
-                    decoration: const InputDecoration(
-                      hintText: "Enter diagnosis",
-                    ),
-                  ),
-                  TextField(
-                    controller: _textController1,
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
-                    decoration: const InputDecoration(
-                      hintText: "Enter date of diagnosis",
-                    ),
-                  ),
-                  TextField(
-                    controller: _textController2,
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
-                    decoration: const InputDecoration(
-                      hintText: "Enter prescriptions",
-                    ),
-                  ),
-                  TextField(
-                    controller: _textController3,
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
-                    decoration: const InputDecoration(
-                      hintText: "Any additional useful remark",
-                    ),
-                  ),
-                ],
-              );
-            default:
-              return const CircularProgressIndicator();
-          }
-        },
-      ),
-    );
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.black,
+          title: const Text('Medical History'),
+          actions: [
+            IconButton(
+              onPressed: () async {
+                final text = _textController.text;
+                final text1 = _textController1.text;
+                final text2 = _textController2.text;
+                final text3 = _textController3.text;
+                if (_note == null ||
+                    (text.isEmpty &&
+                        text1.isEmpty &&
+                        text2.isEmpty &&
+                        text3.isEmpty)) {
+                  await showCannotShareEmptyNoteDialog(context);
+                } else {
+                  final texts = [text, text1, text2, text3];
+                  Share.share(texts.join('\n'));
+                }
+              },
+              icon: const Icon(Icons.share),
+            ),
+          ],
+        ),
+        body: Container(
+            padding: EdgeInsets.all(15),
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/back.jpeg"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: SingleChildScrollView(
+              child: FutureBuilder(
+                future: createOrGetExistingNote(context),
+                builder: (context, snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.done:
+                      _setupTextControllerListener();
+                      return Column(
+                        children: [
+                          SizedBox(
+                            height: 60,
+                          ),
+                          Text(
+                            "Enter the Medical information of the patient",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          SizedBox(height: 40),
+                          TextField(
+                            controller: _textController,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            decoration: const InputDecoration(
+                              hintText: "Enter diagnosis",
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          TextField(
+                            controller: _textController1,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            decoration: const InputDecoration(
+                              hintText: "Enter date of diagnosis",
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          TextField(
+                            controller: _textController2,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            decoration: const InputDecoration(
+                              hintText: "Enter prescriptions",
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          TextField(
+                            controller: _textController3,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            decoration: const InputDecoration(
+                              hintText: "Any additional useful remark",
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                         
+                          const SizedBox(
+                            height: 310,
+                          )
+                        ],
+                      );
+                    default:
+                      return const CircularProgressIndicator();
+                  }
+                },
+              ),
+            )));
   }
 }

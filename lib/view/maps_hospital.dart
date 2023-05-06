@@ -26,48 +26,48 @@ final medical = [
       
       image: 'assets/maps/medplus.png',
       title: 'Medplus Yalakki Shetter Colony',
-      address: '',
+      address: 'Contact: 8897653248',
       location: LatLng( 15.43605850067814,75.02192527026446),
-      rating: 0),
+      rating: 4),
       MapMarker(
       
       image: 'assets/maps/shiva.png',
       title: 'Shiva Medicals & General Stores',
-      address: '',
+      address: 'Contact: 9897253248',
       location: LatLng(15.437009946521329,75.01926451892722),
-      rating: 0),
+      rating: 3),
    MapMarker(
       
       image: 'assets/maps/shiva.png',
       title: 'HEALTH CARE MEDICAL AND GENERAL STORE',
-      address: '',
+      address: 'Contact: 9125243228',
       location: LatLng(15.439491958641042, 75.01171141825075),
-      rating: 0),
+      rating: 4),
 
     MapMarker(
       
       image: 'assets/maps/sneha.jpg',
       title: 'Sneha Clinic',
-      address: '',
+      address: 'Contact: 6326212223',
       location: LatLng(15.397599145234208, 75.00132159948771),
-      rating: 0),
+      rating: 2),
   MapMarker(
       image: 'assets/maps/sdmd.png',
       title: 'SDM College of Dental Sciences & Hospital',
-      address: '',
+      address: 'Contact: 9135243228',
       location: LatLng(15.417879242657511, 75.04074303318959),
-      rating: 0),
+      rating: 3),
   MapMarker(
       image: 'assets/maps/sdm.jpg',
       title: 'SDM College of Medical Sciences and Hospital',
-      address: '',
+      address: 'Contact: 8223223228',
       location: LatLng(15.418681716323594, 75.05018154569872),
-      rating: 0),
+      rating: 5),
  
   MapMarker(
       image: 'assets/maps/mul.png',
       title: 'Mulamuttal Hospital',
-      address: '',
+      address:'Contact: 9125243228',
       location: LatLng(
         15.445926916450501,
         75.00305909381967,
@@ -76,19 +76,19 @@ final medical = [
   MapMarker(
       image: 'assets/maps/rc.png',
       title: 'Rc hiremath medical Store',
-      address: '',
+      address: 'Contact: 8325243527',
       location: LatLng(15.399582770730097, 75.0025755240634),
       rating: 4),
   MapMarker(
       image: 'assets/maps/shri.png',
       title: 'Shrinidhi medical store',
-      address: '',
+      address: 'Contact: 8652243328',
       location: LatLng(15.412778195764567, 75.04190551988742),
       rating: 5),
   MapMarker(
       image: 'assets/maps/medplus.png',
       title: 'Shri Annupurna medicals Store',
-      address: '',
+      address: 'Contact: 7435633529',
       location: LatLng(
         15.418422828993426,
         75.0476911025154,
@@ -97,7 +97,7 @@ final medical = [
   MapMarker(
       image: 'assets/maps/mul.png',
       title: 'Vijaylakshmi medical and general Store',
-      address: '',
+      address: 'Contact: 7135546327',
       location: LatLng(
         15.434549507465457,
         75.00858613962588,
@@ -106,7 +106,7 @@ final medical = [
   MapMarker(
     image: 'assets/maps/shri.png',
     title: 'Shri Bheeem Ambika Medicals',
-    address: '',
+    address: 'Contact: 9125243228',
     location: LatLng(15.435803947896527, 75.0091427136022),
     rating: 4,
   ),

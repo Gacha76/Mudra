@@ -1,12 +1,17 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:classico/utilities/generics/get_arguments.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:classico/services/auth/auth_service.dart';
 import 'package:classico/services/cloud/cloud_note.dart';
 import 'package:classico/services/cloud/firebase_cloud_storage.dart';
 import 'package:classico/utilities/dialogs/cannot_share_empty_note_dialog.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../constants/routes.dart';
+import '../mainscreen.dart';
 
 class CreateUpdateNoteView extends StatefulWidget {
   const CreateUpdateNoteView({super.key});
@@ -17,6 +22,36 @@ class CreateUpdateNoteView extends StatefulWidget {
 
 class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
   CloudNote? _note;
+  File? _image;
+  Future<void> _pickImage() async {
+    final pickedFile =
+        await ImagePicker().getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
+  Future<void> _uploadImage() async {
+  final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
+
+  if (pickedFile != null) {
+    final File file = File(pickedFile.path);
+
+    final String base64Image = base64Encode(file.readAsBytesSync());
+
+    final Reference storageReference = FirebaseStorage.instance.ref().child('images/${DateTime.now().millisecondsSinceEpoch}.jpg');
+
+    final UploadTask uploadTask = storageReference.putData(base64Decode(base64Image));
+
+    await uploadTask.whenComplete(() async {
+      final String imageUrl = await storageReference.getDownloadURL();
+
+      FirebaseFirestore.instance.collection('images').add({'url': imageUrl});
+    });
+  }
+}
+
   late final FirebaseCloudStorage _notesService;
   late final TextEditingController _textController;
   late final TextEditingController _textController1;
@@ -154,7 +189,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
             padding: EdgeInsets.all(15),
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/back.jpeg"),
+                image: AssetImage("assets/login.jpeg"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -204,12 +239,15 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
                             height: 20,
                           ),
                           TextField(
+                            
                             controller: _textController2,
                             keyboardType: TextInputType.multiline,
                             maxLines: null,
                             decoration: const InputDecoration(
+                              
                               hintText: "Enter prescriptions",
                               focusedBorder: UnderlineInputBorder(
+
                                 borderSide: BorderSide(color: Colors.black),
                               ),
                             ),
@@ -231,10 +269,22 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
                           SizedBox(
                             height: 10,
                           ),
-                         
-                          const SizedBox(
+                          
+                          
+              SizedBox(height: 20),
+              if (_image != null) ...[
+                Image.file(_image!),
+              
+              ] else ...[
+                const Text('No image selected.'),
+              ],
+               ElevatedButton(
+                onPressed: _pickImage,
+                child: Text('Select Image'),
+              ),
+               const SizedBox(
                             height: 310,
-                          )
+                          ),
                         ],
                       );
                     default:

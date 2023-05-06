@@ -24,21 +24,21 @@ class MapMarker {
 final medical = [
   MapMarker(
       
-      image: 'assets/hospitals/SDM.jpg',
+      image: 'assets/maps/medplus.png',
       title: 'Medplus Yalakki Shetter Colony',
       address: '',
       location: LatLng( 15.43605850067814,75.02192527026446),
       rating: 0),
       MapMarker(
       
-      image: 'assets/hospitals/SDM.jpg',
+      image: 'assets/maps/shiva.png',
       title: 'Shiva Medicals & General Stores',
       address: '',
       location: LatLng(15.437009946521329,75.01926451892722),
       rating: 0),
    MapMarker(
       
-      image: 'assets/hospitals/SDM.jpg',
+      image: 'assets/maps/shiva.png',
       title: 'HEALTH CARE MEDICAL AND GENERAL STORE',
       address: '',
       location: LatLng(15.439491958641042, 75.01171141825075),
@@ -46,47 +46,47 @@ final medical = [
 
     MapMarker(
       
-      image: 'assets/hospitals/SDM.jpg',
+      image: 'assets/maps/sneha.jpg',
       title: 'Sneha Clinic',
       address: '',
       location: LatLng(15.397599145234208, 75.00132159948771),
       rating: 0),
   MapMarker(
-      image: 'assets/hospitals/SDM.jpg',
+      image: 'assets/maps/sdmd.png',
       title: 'SDM College of Dental Sciences & Hospital',
       address: '',
       location: LatLng(15.417879242657511, 75.04074303318959),
       rating: 0),
   MapMarker(
-      image: 'assets/hospitals/sdmm.jpg',
+      image: 'assets/maps/sdm.jpg',
       title: 'SDM College of Medical Sciences and Hospital',
       address: '',
       location: LatLng(15.418681716323594, 75.05018154569872),
       rating: 0),
  
   MapMarker(
-      image: 'assets/images/restaurant_3.jpg',
+      image: 'assets/maps/mul.png',
       title: 'Mulamuttal Hospital',
       address: '',
       location: LatLng(
         15.445926916450501,
         75.00305909381967,
       ),
-      rating: 0),
+      rating: 3),
   MapMarker(
-      image: 'assets/images/welcome.jpeg',
+      image: 'assets/maps/rc.png',
       title: 'Rc hiremath medical Store',
       address: '',
       location: LatLng(15.399582770730097, 75.0025755240634),
       rating: 4),
   MapMarker(
-      image: 'assets/images/restaurant_2.jpg',
+      image: 'assets/maps/shri.png',
       title: 'Shrinidhi medical store',
       address: '',
       location: LatLng(15.412778195764567, 75.04190551988742),
       rating: 5),
   MapMarker(
-      image: 'assets/images/restaurant_3.jpg',
+      image: 'assets/maps/medplus.png',
       title: 'Shri Annupurna medicals Store',
       address: '',
       location: LatLng(
@@ -95,7 +95,7 @@ final medical = [
       ),
       rating: 2),
   MapMarker(
-      image: 'assets/images/restaurant_4.jpg',
+      image: 'assets/maps/mul.png',
       title: 'Vijaylakshmi medical and general Store',
       address: '',
       location: LatLng(
@@ -104,7 +104,7 @@ final medical = [
       ),
       rating: 3),
   MapMarker(
-    image: 'assets/images/restaurant_5.jpg',
+    image: 'assets/maps/shri.png',
     title: 'Shri Bheeem Ambika Medicals',
     address: '',
     location: LatLng(15.435803947896527, 75.0091427136022),

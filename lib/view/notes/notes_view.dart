@@ -95,7 +95,7 @@ class _NotesViewState extends State<NotesView> {
       body: Container(
         decoration:const  BoxDecoration(
       image: DecorationImage(
-        image: AssetImage("assets/back.jpeg"),
+        image: AssetImage("assets/login.jpeg"),
         fit: BoxFit.cover,
       ),
     ),

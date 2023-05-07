@@ -3,10 +3,14 @@ import 'package:classico/services/auth/bloc/auth_bloc.dart';
 import 'package:classico/services/auth/bloc/auth_event.dart';
 import 'package:classico/services/auth/bloc/auth_state.dart';
 import 'package:classico/services/auth/firebase_auth_provider.dart';
+import 'package:classico/view/appointment_view.dart';
 import 'package:classico/view/forgot_password_view.dart';
+import 'package:classico/view/hospital_view.dart';
 import 'package:classico/view/login_view.dart';
+import 'package:classico/view/mainscreen.dart';
 import 'package:classico/view/mainui_view.dart';
 import 'package:classico/view/maps_hospital.dart';
+import 'package:classico/view/select_date_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:classico/view/notes/create_update_note_view.dart';
 import 'package:classico/view/notes/notes_view.dart';
@@ -39,14 +43,18 @@ void main() {
           child: const HomePage(),
         ),
         routes: {
-          mapbox:(context) => const MapBox_hospital(),
-          forgotEmailRoute:(context) => const ForgotPasswordView(),
+          mapbox: (context) => const MapBox_hospital(),
+          forgotEmailRoute: (context) => const ForgotPasswordView(),
           mapsRoute: (context) => const MapScreen(),
           loginRoute: (context) => const LoginView(),
-        registerRoute: (context) => const RegisterView(),
-        notesRoute: (context) => const NotesView(),
-        verifyEmailRoute: (context) => const VerifyEmailView(),
-        createOrUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
+          registerRoute: (context) => const RegisterView(),
+          notesRoute: (context) => const NotesView(),
+          verifyEmailRoute: (context) => const VerifyEmailView(),
+          createOrUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
+          mainscreen: (context) => const MainScreen(),
+          selectDate: (context) => SelectDateScreen(),
+          appointment: (context) => const AppointmentScreen(),
+          hospitalScreen: (context) => const HospitalScreen(),
         },
       ),
     ),

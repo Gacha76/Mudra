@@ -1,4 +1,5 @@
 import 'package:classico/constants/routes.dart';
+import 'package:classico/enums/menu_action.dart';
 import 'package:classico/extensions/buildcontext/loc.dart';
 import 'package:classico/services/auth/auth_service.dart';
 import 'package:classico/services/cloud/cloud_note.dart';
@@ -9,11 +10,6 @@ import 'package:flutter/material.dart';
 
 extension Count<T extends Iterable> on Stream<T> {
   Stream<int> get getLength => map((event) => event.length);
-}
-
-enum MenuAction {
-  logout,
-  maps,
 }
 
 class NotesView extends StatefulWidget {
@@ -72,9 +68,6 @@ class _NotesViewState extends State<NotesView> {
                     }
                   }
                   break;
-                case MenuAction.maps:
-                  Navigator.of(context).pushNamed(mapbox);
-                  break;
               }
             },
             itemBuilder: (context) {
@@ -83,52 +76,48 @@ class _NotesViewState extends State<NotesView> {
                   value: MenuAction.logout,
                   child: Text(context.loc.logout_button),
                 ),
-                const PopupMenuItem<MenuAction>(
-                  value: MenuAction.maps,
-                  child: Text("Maps"),
-                ),
               ];
             },
           )
         ],
       ),
       body: Container(
-        decoration:const  BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage("assets/login.jpeg"),
-        fit: BoxFit.cover,
-      ),
-    ),
-        child:  StreamBuilder(
-      
-        stream: _notesService.allNotes(ownerUserId: userId),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
-            case ConnectionState.active:
-              if (snapshot.hasData) {
-                final allNotes = snapshot.data as Iterable<CloudNote>;
-                return NotesListView(
-                  notes: allNotes,
-                  onDeleteNote: (note) async {
-                    await _notesService.deleteNotes(
-                        documentId: note.documentId);
-                  },
-                  onTap: (note) {
-                    Navigator.of(context).pushNamed(
-                      createOrUpdateNoteRoute,
-                      arguments: note,
-                    );
-                  },
-                );
-              } else {
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/icon/back.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: StreamBuilder(
+          stream: _notesService.allNotes(ownerUserId: userId),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+              case ConnectionState.active:
+                if (snapshot.hasData) {
+                  final allNotes = snapshot.data as Iterable<CloudNote>;
+                  return NotesListView(
+                    notes: allNotes,
+                    onDeleteNote: (note) async {
+                      await _notesService.deleteNotes(
+                          documentId: note.documentId);
+                    },
+                    onTap: (note) {
+                      Navigator.of(context).pushNamed(
+                        createOrUpdateNoteRoute,
+                        arguments: note,
+                      );
+                    },
+                  );
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              default:
                 return const CircularProgressIndicator();
-              }
-            default:
-              return const CircularProgressIndicator();
-          }
-        },
-      ),)
+            }
+          },
+        ),
+      ),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:classico/utilities/generics/get_arguments.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:classico/services/auth/auth_service.dart';
@@ -21,8 +22,38 @@ class CreateUpdateNoteView extends StatefulWidget {
 }
 
 class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
+  PlatformFile? pickedFile;
+  UploadTask? uploadTask;
+  String? URL;
+
+  Future uploadFile() async {
+    final result = await FilePicker.platform.pickFiles();
+    if (result == null) return;
+
+    setState(() {
+      pickedFile = result.files.first;
+    });
+    final path = 'files/${pickedFile!.name}';
+    final file = File(pickedFile!.path!);
+
+    final ref = FirebaseStorage.instance.ref().child(path);
+    setState(() {
+      uploadTask = ref.putFile(file);
+    });
+
+    final snapshot = await uploadTask!.whenComplete(() {});
+    final urlDownload = await snapshot.ref.getDownloadURL();
+
+    print("Download Link: $urlDownload");
+
+    setState(() {
+      URL = urlDownload;
+      uploadTask = null;
+    });
+  }
+
   CloudNote? _note;
-  File? _image;
+  /*File? _image;
   Future<void> _pickImage() async {
     final pickedFile =
         await ImagePicker().getImage(source: ImageSource.gallery);
@@ -31,26 +62,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
         _image = File(pickedFile.path);
       });
     }
-  }
-  Future<void> _uploadImage() async {
-  final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
-
-  if (pickedFile != null) {
-    final File file = File(pickedFile.path);
-
-    final String base64Image = base64Encode(file.readAsBytesSync());
-
-    final Reference storageReference = FirebaseStorage.instance.ref().child('images/${DateTime.now().millisecondsSinceEpoch}.jpg');
-
-    final UploadTask uploadTask = storageReference.putData(base64Decode(base64Image));
-
-    await uploadTask.whenComplete(() async {
-      final String imageUrl = await storageReference.getDownloadURL();
-
-      FirebaseFirestore.instance.collection('images').add({'url': imageUrl});
-    });
-  }
-}
+  }*/
 
   late final FirebaseCloudStorage _notesService;
   late final TextEditingController _textController;
@@ -97,6 +109,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     final text1 = _textController1.text;
     final text2 = _textController2.text;
     final text3 = _textController3.text;
+
     if (note != null &&
         (text.isNotEmpty ||
             text1.isNotEmpty ||
@@ -120,6 +133,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     _textController1.dispose();
     _textController2.dispose();
     _textController3.dispose();
+
     super.dispose();
   }
 
@@ -130,6 +144,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     _textController1 = TextEditingController();
     _textController2 = TextEditingController();
     _textController3 = TextEditingController();
+
     super.initState();
   }
 
@@ -142,6 +157,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     final text1 = _textController1.text;
     final text2 = _textController2.text;
     final text3 = _textController3.text;
+
     await _notesService.updateNote(
       documentId: note.documentId,
       text: text,
@@ -159,139 +175,189 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.black,
-          title: const Text('Medical History'),
-          actions: [
-            IconButton(
-              onPressed: () async {
-                final text = _textController.text;
-                final text1 = _textController1.text;
-                final text2 = _textController2.text;
-                final text3 = _textController3.text;
-                if (_note == null ||
-                    (text.isEmpty &&
-                        text1.isEmpty &&
-                        text2.isEmpty &&
-                        text3.isEmpty)) {
-                  await showCannotShareEmptyNoteDialog(context);
-                } else {
-                  final texts = [text, text1, text2, text3];
-                  Share.share(texts.join('\n'));
-                }
-              },
-              icon: const Icon(Icons.share),
-            ),
-          ],
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.black,
+        title: const Text('Medical History'),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              final text = _textController.text;
+              final text1 = _textController1.text;
+              final text2 = _textController2.text;
+              final text3 = _textController3.text;
+              if (_note == null ||
+                  (text.isEmpty &&
+                      text1.isEmpty &&
+                      text2.isEmpty &&
+                      text3.isEmpty)) {
+                await showCannotShareEmptyNoteDialog(context);
+              } else {
+                final texts = [text, text1, text2, text3];
+                Share.share(texts.join('\n'));
+              }
+            },
+            icon: const Icon(Icons.share),
+          ),
+        ],
+      ),
+      body: Container(
+        padding: EdgeInsets.all(15),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/icon/back.png"),
+            fit: BoxFit.cover,
+          ),
         ),
-        body: Container(
-            padding: EdgeInsets.all(15),
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/login.jpeg"),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: SingleChildScrollView(
-              child: FutureBuilder(
-                future: createOrGetExistingNote(context),
-                builder: (context, snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.done:
-                      _setupTextControllerListener();
-                      return Column(
-                        children: [
-                          SizedBox(
-                            height: 60,
+        child: SingleChildScrollView(
+          child: FutureBuilder(
+            future: createOrGetExistingNote(context),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.done:
+                  _setupTextControllerListener();
+                  return Column(
+                    children: [
+                      const SizedBox(
+                        height: 60,
+                      ),
+                      const Text(
+                        "Enter the Medical information of the patient",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(height: 40),
+                      TextField(
+                        controller: _textController,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        decoration: const InputDecoration(
+                          hintText: "Enter diagnosis",
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
                           ),
-                          Text(
-                            "Enter the Medical information of the patient",
-                            style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextField(
+                        controller: _textController1,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        decoration: const InputDecoration(
+                          hintText: "Enter date of diagnosis",
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
                           ),
-                          SizedBox(height: 40),
-                          TextField(
-                            controller: _textController,
-                            keyboardType: TextInputType.multiline,
-                            maxLines: null,
-                            decoration: const InputDecoration(
-                              hintText: "Enter diagnosis",
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black),
-                              ),
-                            ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextField(
+                        controller: _textController2,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        decoration: const InputDecoration(
+                          hintText: "Enter prescriptions",
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
                           ),
-                          SizedBox(
-                            height: 20,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextField(
+                        controller: _textController3,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        decoration: const InputDecoration(
+                          hintText: "Any additional useful remark",
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
                           ),
-                          TextField(
-                            controller: _textController1,
-                            keyboardType: TextInputType.multiline,
-                            maxLines: null,
-                            decoration: const InputDecoration(
-                              hintText: "Enter date of diagnosis",
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          TextField(
-                            
-                            controller: _textController2,
-                            keyboardType: TextInputType.multiline,
-                            maxLines: null,
-                            decoration: const InputDecoration(
-                              
-                              hintText: "Enter prescriptions",
-                              focusedBorder: UnderlineInputBorder(
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
 
-                                borderSide: BorderSide(color: Colors.black),
+                      /*const SizedBox(height: 20),
+                      if (_image != null) ...[
+                        Image.file(_image!),
+                      ] else ...[
+                        const Text('No image selected.'),
+                      ],
+                      ElevatedButton(
+                        onPressed: _pickImage,
+                        child: Text('Select Image'),
+                      ),
+                      const SizedBox(
+                        height: 310,
+                      ),*/
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (URL != null)
+                            Flexible(
+                              child: Container(
+                                color: Colors.blue[100],
+                                child: Center(
+                                  child: Image.network(URL!, height: 300),
+                                ),
                               ),
                             ),
+                          const SizedBox(height: 32),
+                          ElevatedButton(
+                            onPressed: uploadFile,
+                            child: const Text("Upload File"),
                           ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          TextField(
-                            controller: _textController3,
-                            keyboardType: TextInputType.multiline,
-                            maxLines: null,
-                            decoration: const InputDecoration(
-                              hintText: "Any additional useful remark",
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          
-                          
-              SizedBox(height: 20),
-              if (_image != null) ...[
-                Image.file(_image!),
-              
-              ] else ...[
-                const Text('No image selected.'),
-              ],
-               ElevatedButton(
-                onPressed: _pickImage,
-                child: Text('Select Image'),
-              ),
-               const SizedBox(
-                            height: 310,
-                          ),
+                          const SizedBox(height: 32),
+                          buildProgress(),
                         ],
-                      );
-                    default:
-                      return const CircularProgressIndicator();
-                  }
-                },
-              ),
-            )));
+                      ),
+                    ],
+                  );
+                default:
+                  return const CircularProgressIndicator();
+              }
+            },
+          ),
+        ),
+      ),
+    );
   }
+
+  Widget buildProgress() => StreamBuilder<TaskSnapshot>(
+      stream: uploadTask?.snapshotEvents,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final data = snapshot.data!;
+          double progress = data.bytesTransferred / data.totalBytes;
+
+          return SizedBox(
+            height: 50,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                LinearProgressIndicator(
+                  value: progress,
+                  backgroundColor: Colors.grey,
+                  color: Colors.green,
+                ),
+                Center(
+                  child: Text(
+                    '${(100 * progress).roundToDouble()}%',
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
+          );
+        } else {
+          return const SizedBox(height: 50);
+        }
+      });
 }

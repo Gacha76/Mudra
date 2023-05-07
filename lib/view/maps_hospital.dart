@@ -20,32 +20,26 @@ class MapMarker {
   });
 }
 
-
 final medical = [
   MapMarker(
-      
       image: 'assets/maps/medplus.png',
       title: 'Medplus Yalakki Shetter Colony',
       address: 'Contact: 8897653248',
-      location: LatLng( 15.43605850067814,75.02192527026446),
+      location: LatLng(15.43605850067814, 75.02192527026446),
       rating: 4),
-      MapMarker(
-      
+  MapMarker(
       image: 'assets/maps/shiva.png',
       title: 'Shiva Medicals & General Stores',
       address: 'Contact: 9897253248',
-      location: LatLng(15.437009946521329,75.01926451892722),
+      location: LatLng(15.437009946521329, 75.01926451892722),
       rating: 3),
-   MapMarker(
-      
+  MapMarker(
       image: 'assets/maps/shiva.png',
       title: 'HEALTH CARE MEDICAL AND GENERAL STORE',
       address: 'Contact: 9125243228',
       location: LatLng(15.439491958641042, 75.01171141825075),
       rating: 4),
-
-    MapMarker(
-      
+  MapMarker(
       image: 'assets/maps/sneha.jpg',
       title: 'Sneha Clinic',
       address: 'Contact: 6326212223',
@@ -63,11 +57,10 @@ final medical = [
       address: 'Contact: 8223223228',
       location: LatLng(15.418681716323594, 75.05018154569872),
       rating: 5),
- 
   MapMarker(
       image: 'assets/maps/mul.png',
       title: 'Mulamuttal Hospital',
-      address:'Contact: 9125243228',
+      address: 'Contact: 9125243228',
       location: LatLng(
         15.445926916450501,
         75.00305909381967,
@@ -111,7 +104,6 @@ final medical = [
     rating: 4,
   ),
 ];
-
 
 class AppConstants {
   static const String mapBoxAccessToken =
@@ -187,8 +179,11 @@ class _MapBoxState_hospital extends State<MapBox_hospital>
                     width: 80.0,
                     height: 80.0,
                     point: LatLng(15.392084031535996, 75.02574705206158),
-                    builder: (ctx) =>
-                        Icon(Icons.location_on, color: Colors.red,size: 40,),
+                    builder: (ctx) => const Icon(
+                      Icons.location_on,
+                      color: Colors.red,
+                      size: 40,
+                    ),
                   ),
                   for (int i = 0; i < medical.length; i++)
                     Marker(

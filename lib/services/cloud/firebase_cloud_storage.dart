@@ -22,7 +22,12 @@ class FirebaseCloudStorage {
     required String text3,
   }) async {
     try {
-      await notes.doc(documentId).update({textFieldName: text, textFieldName1: text1, textFieldName2: text2, textFieldName3: text3});
+      await notes.doc(documentId).update({
+        textFieldName: text,
+        textFieldName1: text1,
+        textFieldName2: text2,
+        textFieldName3: text3,
+      });
     } catch (e) {
       throw CouldNotUpdateNoteException();
     }
@@ -32,7 +37,8 @@ class FirebaseCloudStorage {
     final allNotes = notes
         .where(ownerUserIdFieldName, isEqualTo: ownerUserId)
         .snapshots()
-        .map((event) => event.docs.map((doc) => CloudNote.fromSnapshot(doc)).toList());
+        .map((event) =>
+            event.docs.map((doc) => CloudNote.fromSnapshot(doc)).toList());
     return allNotes;
   }
 

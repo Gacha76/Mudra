@@ -6,3 +6,7 @@ const createOrUpdateNoteRoute = '/notes/new-note/';
 const forgotEmailRoute = '/forgot-email/';
 const mapsRoute = '/maps/';
 const mapbox = '/mapbox/';
+const mainscreen = '/mainscreen/';
+const selectDate = '/select_date/';
+const appointment = '/appointment/';
+const hospitalScreen = '/hospital/';

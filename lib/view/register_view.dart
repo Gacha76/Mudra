@@ -39,12 +39,12 @@ class _RegisterViewState extends State<RegisterView> {
         title: Text(context.loc.register),
       ),
       body: Container(
-        decoration:const  BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage("assets/login.jpeg"),
-        fit: BoxFit.cover,
-      ),
-    ),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/icon/back.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
@@ -52,43 +52,57 @@ class _RegisterViewState extends State<RegisterView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //Ctrl + Shift + F
-              SizedBox(height: 50,),
-              Text(context.loc.register_view_prompt,style: TextStyle(fontSize: 20),),
-                 SizedBox(height: 60),
+              const SizedBox(
+                height: 50,
+              ),
+              Text(
+                context.loc.register_view_prompt,
+                style: const TextStyle(fontSize: 20),
+              ),
+              const SizedBox(height: 60),
               TextField(
                 controller: _email,
                 enableSuggestions: false,
                 autocorrect: false,
                 autofocus: true,
                 keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration( focusedBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.black),
-    ),
-                  enabledBorder: UnderlineInputBorder(borderSide: const BorderSide(color: Colors.black)),
+                decoration: InputDecoration(
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                  enabledBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black)),
                   hintText: context.loc.email_text_field_placeholder,
                 ),
               ),
-              
-              SizedBox(height: 20,),
+
+              const SizedBox(
+                height: 20,
+              ),
               TextField(
                 controller: _password,
                 obscureText: true,
                 enableSuggestions: false,
                 autocorrect: false,
                 decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.black),
-    ),
-                   enabledBorder: UnderlineInputBorder(borderSide: const BorderSide(color: Colors.black)),
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                  enabledBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black)),
                   hintText: context.loc.password_text_field_placeholder,
                 ),
               ),
-               SizedBox(height: 40,),
+              const SizedBox(
+                height: 40,
+              ),
               Center(
                 child: Column(
                   children: [
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom(foregroundColor: Colors.white,backgroundColor: Colors.black),
+                      style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.black),
                       //Click on widget name & ctrl + .
                       onPressed: () async {
                         final email = _email.text;
@@ -126,9 +140,12 @@ class _RegisterViewState extends State<RegisterView> {
                       },
                       child: Text(context.loc.register),
                     ),
-                    const SizedBox(height: 40,),
+                    const SizedBox(
+                      height: 40,
+                    ),
                     TextButton(
-                      style: TextButton.styleFrom(foregroundColor: Colors.black),
+                      style:
+                          TextButton.styleFrom(foregroundColor: Colors.black),
                       onPressed: () {
                         Navigator.of(context).pushNamedAndRemoveUntil(
                           loginRoute,
@@ -137,7 +154,9 @@ class _RegisterViewState extends State<RegisterView> {
                       },
                       child: Text(context.loc.register_view_already_registered),
                     ),
-                    SizedBox(height: 250,)
+                    const SizedBox(
+                      height: 250,
+                    )
                   ],
                 ),
               ),

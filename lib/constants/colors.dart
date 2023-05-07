@@ -1,0 +1,28 @@
+import 'package:flutter/material.dart';
+
+const kPrimaryClr = Color(0xffd99156);
+const kWhiteClr = Color.fromARGB(255, 255, 255, 255);
+
+class ColorPalette {
+  static const Color primaryColor = Color(0xff6357CC);
+  static const Color secondColor = Color(0xff8F67E8);
+  static const Color yellowColor = Color.fromARGB(255, 57, 83, 230);
+
+  static const Color transparent = Color(0xffFE9C5E);
+
+  static const Color dividerColor = Color(0xFFE5E7EB);
+  static const Color text1Color = Color(0xFF323B4B);
+  static const Color subTitleColor = Color(0xFF838383);
+  static const Color backgroundScaffoldColor = Color(0xFFF2F2F2);
+}
+
+class Gradients {
+  static const Gradient defaultGradientBackground = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomLeft,
+    colors: [
+      ColorPalette.secondColor,
+      Color.fromARGB(255, 99, 87, 204),
+    ],
+  );
+}

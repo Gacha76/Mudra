@@ -56,19 +56,28 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           backgroundColor: Colors.black,
         ),
         body: Container(
-           decoration:const  BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage("assets/login.jpeg"),
-        fit: BoxFit.cover,
-      ),
-    ),
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/icon/back.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 50,),
-                Text(context.loc.forgot_password_view_prompt,style: TextStyle(fontSize: 18,),),
-                const SizedBox(height: 50,),
+                const SizedBox(
+                  height: 50,
+                ),
+                Text(
+                  context.loc.forgot_password_view_prompt,
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
                 TextField(
                   keyboardType: TextInputType.emailAddress,
                   autocorrect: false,
@@ -76,14 +85,18 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                   controller: _controller,
                   decoration: InputDecoration(
                     hintText: context.loc.email_text_field_placeholder,
-                    focusedBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.black),
-    ),
+                    focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
                   ),
                 ),
-                SizedBox(height: 30,),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(foregroundColor: Colors.white,backgroundColor: Colors.black),
+                const SizedBox(
+                  height: 30,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.black),
                   onPressed: () {
                     final email = _controller.text;
                     context.read<AuthBloc>().add(
@@ -92,7 +105,9 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                   },
                   child: Text(context.loc.forgot_password_view_send_me_link),
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pushNamedAndRemoveUntil(
@@ -100,9 +115,14 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                       (route) => false,
                     );
                   },
-                  child: Text(context.loc.forgot_password_view_back_to_login,style: TextStyle(color: Colors.black),),
+                  child: Text(
+                    context.loc.forgot_password_view_back_to_login,
+                    style: const TextStyle(color: Colors.black),
+                  ),
                 ),
-                SizedBox(height: 340,)
+                const SizedBox(
+                  height: 340,
+                )
               ],
             ),
           ),

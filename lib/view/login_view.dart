@@ -39,51 +39,55 @@ class _LoginViewState extends State<LoginView> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(context.loc.login),
-        backgroundColor:Colors.black,
+        backgroundColor: Colors.black,
       ),
       body: Container(
-        decoration:const  BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage("assets/login.jpeg"),
-        fit: BoxFit.cover,
-      ),
-    ),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/icon/back.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
-             const  SizedBox(height: 50),
-              Text(context.loc.login_view_prompt, style: TextStyle(fontSize: 20),),
-             const SizedBox(height: 60),
+              const SizedBox(height: 50),
+              Text(
+                context.loc.login_view_prompt,
+                style: const TextStyle(fontSize: 20),
+              ),
+              const SizedBox(height: 60),
               TextField(
                 controller: _email,
                 enableSuggestions: false,
                 autocorrect: false,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.black),
-    ),
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
                   hintText: context.loc.email_text_field_placeholder,
                 ),
               ),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20),
               TextField(
                 controller: _password,
                 obscureText: true,
                 enableSuggestions: false,
                 autocorrect: false,
                 decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.black),
-    ),
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
                   hintText: context.loc.password_text_field_placeholder,
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               ElevatedButton(
-                
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.black,foregroundColor: Colors.white),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    foregroundColor: Colors.white),
                 //Click on widget name & ctrl + .
                 onPressed: () async {
                   final email = _email.text;
@@ -97,7 +101,7 @@ class _LoginViewState extends State<LoginView> {
                     if (user?.isEmailVerified ?? false) {
                       if (context.mounted) {
                         Navigator.of(context).pushNamedAndRemoveUntil(
-                          notesRoute,
+                          mainscreen,
                           (route) => false,
                         );
                       }
@@ -129,8 +133,9 @@ class _LoginViewState extends State<LoginView> {
                 },
                 child: Text(context.loc.login),
               ),
-              
-              SizedBox(height: 50,),
+              const SizedBox(
+                height: 50,
+              ),
               TextButton(
                 style: TextButton.styleFrom(foregroundColor: Colors.black),
                 onPressed: () {
@@ -151,7 +156,9 @@ class _LoginViewState extends State<LoginView> {
                 },
                 child: Text(context.loc.login_view_not_registered_yet),
               ),
-              SizedBox(height: 198,),
+              const SizedBox(
+                height: 198,
+              ),
             ],
           ),
         ),

@@ -22,7 +22,7 @@ class MainPage extends StatelessWidget {
           padding: EdgeInsets.all(30),
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/login.jpeg"),
+              image: AssetImage("assets/icon/back.png"),
               fit: BoxFit.cover,
             ),
           ),
@@ -38,17 +38,14 @@ class MainPage extends StatelessWidget {
                 "Mudra Provides a platform for assisting patients in their medical history and prescriptions!",
                 style: TextStyle(fontStyle: FontStyle.italic, fontSize: 19),
               ),
-              
               const SizedBox(
                 height: 60,
               ),
               ElevatedButton(
-                   style:
-                  ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.black),
+                style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.black),
                 onPressed: () {
-               
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const LoginView()),
@@ -56,15 +53,18 @@ class MainPage extends StatelessWidget {
                 },
                 child: const Text('Log in'),
               ),
-              
               const SizedBox(height: 80.0),
-              const Text("Tap on map to view nearby Hospitals and medical stores",style: TextStyle(fontStyle: FontStyle.italic,fontSize: 19),),
-              SizedBox(height: 40,),
+              const Text(
+                "Tap on map to view nearby Hospitals and medical stores",
+                style: TextStyle(fontStyle: FontStyle.italic, fontSize: 19),
+              ),
+              const SizedBox(
+                height: 40,
+              ),
               ElevatedButton(
-                   style:
-                  ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.black),
+                style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.black),
                 onPressed: () {
                   Navigator.of(context).pushNamed(mapbox);
                 },

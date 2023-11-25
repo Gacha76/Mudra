@@ -71,18 +71,17 @@ class _MapScreenState extends State<MapScreen> {
       'long': 75.02192527026446,
     },
   ];
-  final List<Map<String, dynamic>> hospitals= [
+  final List<Map<String, dynamic>> hospitals = [
     {
       'name': 'SDM College of Dental Sciences & Hospital',
       'lat': 15.417915911553646,
-      'long': 75.04078905982114 ,
+      'long': 75.04078905982114,
     },
     {
       'name': 'SDM College of Medical Sciences and Hospital',
       'lat': 15.41859612733524,
-      'long':  75.0501358435967,
+      'long': 75.0501358435967,
     },
-
     {
       'name': 'THE HUBLI HOSPICE',
       'lat': 15.388265846368038,
@@ -98,8 +97,6 @@ class _MapScreenState extends State<MapScreen> {
       'lat': 15.44011019182318,
       'long': 74.99507935503387,
     },
-
-
   ];
   final List<Map<String, dynamic>> clinics = [
     {
@@ -147,8 +144,6 @@ class _MapScreenState extends State<MapScreen> {
             urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             subdomains: ['a', 'b', 'c'],
           ),
-           
-          
           MarkerLayerOptions(
             markers: _currentLocation == null
                 ? []
@@ -158,8 +153,7 @@ class _MapScreenState extends State<MapScreen> {
                       height: 80.0,
                       point: LatLng(_currentLocation!.latitude!,
                           _currentLocation!.longitude!),
-                      builder: (ctx) => 
-                      const Icon(
+                      builder: (ctx) => const Icon(
                         Icons.location_on,
                         color: Colors.red,
                         size: 40,

@@ -153,7 +153,8 @@ class _MapBoxState_hospital extends State<MapBox_hospital>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 33, 32, 32),
-        title: const Text('Flutter MapBox'),
+        title: const Text('Maps'),
+        centerTitle: true,
       ),
       body: Stack(
         children: [

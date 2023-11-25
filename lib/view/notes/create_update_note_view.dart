@@ -311,10 +311,14 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
                             ),
                           const SizedBox(height: 32),
                           ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor: Colors.black,
+                            ),
                             onPressed: uploadFile,
                             child: const Text("Upload File"),
                           ),
-                          const SizedBox(height: 32),
+                          const SizedBox(height: 290),
                           buildProgress(),
                         ],
                       ),
